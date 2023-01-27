@@ -1,0 +1,30 @@
+name: tfsec-validation
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  actions: read
+  contents: read
+  packages: read
+  pull-requests: read
+  repository-projects: read
+
+jobs:
+  tfsec-validation:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/zeus-health/ci-worker
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Run tfsec Checks
+        shell: bash
+        working-directory: ./infra
+        env:
+          READ_ONLY_GITHUB_TOKEN: ${{ secrets.READ_ONLY_GITHUB_TOKEN }}
+        run: |
+          curl -H "Authorization: token $READ_ONLY_GITHUB_TOKEN" -H "Accept: application/vnd.github.v3.raw" https://api.github.com/repos/zeus-health/aws-base/contents/tfsec/config.yml -O
+          tfsec . -m MEDIUM --config-file ./config.yml --soft-fail
