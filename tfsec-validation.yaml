@@ -22,7 +22,6 @@ jobs:
     steps:
       - name: Run tfsec Checks
         shell: bash
-        working-directory: ./infra
         env:
           READ_ONLY_GITHUB_TOKEN: ${{ secrets.READ_ONLY_GITHUB_TOKEN }}
         run: |
