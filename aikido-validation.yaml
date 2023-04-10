@@ -1,0 +1,20 @@
+name: Scan with Aikido
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions: read-all
+
+jobs:
+  trivy:
+    name: Aikido Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Detect new vulnerabilities
+        uses: AikidoSec/github-actions-workflow@main
+        continue-on-error: true
+        with:
+            secret-key: ${{ secrets.AIKIDO_SECRET_KEY }}
