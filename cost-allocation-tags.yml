@@ -1,0 +1,35 @@
+name: cost-allocation-tags
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  actions: read
+  contents: read
+  packages: read
+  pull-requests: read
+  repository-projects: read
+
+jobs:
+  tfsec-validation:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/zeus-health/ci-worker
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Check for AWS cost allocation tags
+        shell: bash
+        env:
+          READ_ONLY_GITHUB_TOKEN: ${{ secrets.READ_ONLY_GITHUB_TOKEN }}
+        run: |
+          tag_config_count=$(find . -type f -not -path '*/.*' -name '*.tf' -print0  | xargs -0 grep -l "provider" | xargs grep default_tags | wc -l | xargs)
+
+          if [[ $tag_config_count == 0 ]]; then
+            echo -e "No default tags for AWS cost allocation found. These should be specified in the aws provider block."
+            exit -1
+          fi
