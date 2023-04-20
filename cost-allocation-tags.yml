@@ -1,0 +1,30 @@
+name: cost-allocation-tags
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  actions: read
+  contents: read
+  packages: read
+  pull-requests: read
+  repository-projects: read
+
+jobs:
+  tfsec-validation:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/zeus-health/ci-worker
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Check for AWS cost allocation tags
+        shell: bash
+        env:
+          READ_ONLY_GITHUB_TOKEN: ${{ secrets.READ_ONLY_GITHUB_TOKEN }}
+        run: |
+          ./count-untagged-providers.sh
