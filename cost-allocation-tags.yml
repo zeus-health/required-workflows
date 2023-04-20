@@ -27,9 +27,4 @@ jobs:
         env:
           READ_ONLY_GITHUB_TOKEN: ${{ secrets.READ_ONLY_GITHUB_TOKEN }}
         run: |
-          tag_config_count=$(find . -type f -not -path '*/.*' -name '*.tf' -print0  | xargs -0 grep -l "provider" | xargs grep default_tags | wc -l | xargs)
-
-          if [[ $tag_config_count == 0 ]]; then
-            echo -e "No default tags for AWS cost allocation found. These should be specified in the aws provider block."
-            exit -1
-          fi
+          ./count-untagged-providers.sh
