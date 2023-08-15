@@ -26,6 +26,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: 'zeus-health/required-workflows'
+          ref: 'main'
           path: 'cost_allocation_tags'
           set-safe-directory: 'cost_allocation_tags'
       - name: Check for AWS cost allocation tags
