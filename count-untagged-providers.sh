@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "### Inspecting *.tf for Proviers ..."
+
 files=$(find . -type f -not -path '*/.*' -name '*.tf' -print0  | xargs -0 grep -l "provider \"aws\"")
 
 for file in ${files[@]}
