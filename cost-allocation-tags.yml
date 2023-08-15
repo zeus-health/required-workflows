@@ -27,4 +27,5 @@ jobs:
         env:
           READ_ONLY_GITHUB_TOKEN: ${{ secrets.READ_ONLY_GITHUB_TOKEN }}
         run: |
+          ls -lsahR
           ./count-untagged-providers.sh
