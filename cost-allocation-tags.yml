@@ -28,11 +28,11 @@ jobs:
           token: ${{ secrets.REQ_WORKFLOW_PAT }}
           repository: zeus-health/required-workflows
           ref: feature/INFR-648-deafult_tags
-          path: cost_allocation_tags
+          path: required-workflows
           set-safe-directory: 'cost_allocation_tags'
       - name: Check for AWS cost allocation tags
         shell: bash
         env:
           READ_ONLY_GITHUB_TOKEN: ${{ secrets.READ_ONLY_GITHUB_TOKEN }}
         run: |
-          ./cost_allocation_tags/main.sh
+          ./required-workflows/cost_allocation_tags/main.sh
