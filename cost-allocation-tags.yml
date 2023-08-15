@@ -35,4 +35,4 @@ jobs:
         env:
           READ_ONLY_GITHUB_TOKEN: ${{ secrets.READ_ONLY_GITHUB_TOKEN }}
         run: |
-          ./cost_allocation_tags/count-untagged-providers.sh
+          ./cost_allocation_tags/main.sh
