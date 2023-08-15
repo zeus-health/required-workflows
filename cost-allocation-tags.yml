@@ -32,8 +32,8 @@ jobs:
           set-safe-directory: 'cost_allocation_tags'
       - name: Check for AWS cost allocation tags
         shell: bash
-        run: |
-          find . -type f -not -path '*/.*' -not -path "./required-workflows/*" -name '*.tf' -print0 > required-workflows/cost_allocation_tags/TF_FILES.tmp
+        run: | # exclude the required-workflows directory, it's not the repo being inspected
+          find . -type f -not -path '*/.*' -not -path "./required-workflows/*" -name '*.tf' -print > required-workflows/cost_allocation_tags/TF_FILES.tmp
       - name: Check for AWS cost allocation tags
         shell: bash
         working-directory: required-workflows/cost_allocation_tags
