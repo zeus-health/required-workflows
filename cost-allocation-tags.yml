@@ -12,7 +12,7 @@ permissions:
   repository-projects: read
 
 jobs:
-  tfsec-validation:
+   cost-allocation-check:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/zeus-health/ci-worker
