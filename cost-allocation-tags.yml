@@ -32,6 +32,10 @@ jobs:
           set-safe-directory: 'cost_allocation_tags'
       - name: Check for AWS cost allocation tags
         shell: bash
+        run: |
+          find . -type f -not -path '*/.*' -not -path "./required-workflows/*" -name '*.tf' -print0 > required-workflows/cost_allocation_tags/TF_FILES.tmp
+      - name: Check for AWS cost allocation tags
+        shell: bash
         working-directory: required-workflows/cost_allocation_tags
         env: 
           READ_ONLY_GITHUB_TOKEN: ${{ secrets.READ_ONLY_GITHUB_TOKEN }}
