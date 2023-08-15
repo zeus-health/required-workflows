@@ -32,7 +32,8 @@ jobs:
           set-safe-directory: 'cost_allocation_tags'
       - name: Check for AWS cost allocation tags
         shell: bash
-        env:
+        working-directory: required-workflows/cost_allocation_tags
+        env: 
           READ_ONLY_GITHUB_TOKEN: ${{ secrets.READ_ONLY_GITHUB_TOKEN }}
         run: |
-          ./required-workflows/cost_allocation_tags/main.sh
+          ./main.sh pwd
