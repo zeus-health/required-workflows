@@ -18,7 +18,7 @@ for (const terraformFilePath of terraformFilesFullPath) {
    // console.log(buffer.toString());
 
    objectResult = hcl.parseToObject(buffer.toString())
-   console.log(objectResult[0])  
+   console.log(objectResult)  
 }
 
 
