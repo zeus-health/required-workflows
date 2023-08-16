@@ -28,29 +28,24 @@ for (const terraformFilePath of terraformFilesFullPath) {
       continue;
    }
 
-   // Iterate over provider names
-   for (var provider_name in terraformFileObject.provider) {
+   // Iterate over providers "aws"
+   for (const provider_instance of terraformFileObject.provider.aws) {
 
-      if (terraformFileObject.hasOwnProperty(provider_name)) { continue; }
+      if (provider_instance.default_tags === undefined) {
+         caughtTagOmissions.push(`${terraformFilePath}: provider.${provider_name} missing default_tags`);
+         continue;
+      }
 
-      // Iterate over same-named providers
-      for (const provider_instance of terraformFileObject.provider[provider_name]) {
-
-         if (provider_instance.default_tags === undefined) {
-            caughtTagOmissions.push(`${terraformFilePath}: provider.${provider_name} missing default_tags`);
-            continue;
-         }
-
-         // String comparison for specific tags existence
-         var stringifiedTagsObject = JSON.stringify(provider_instance.default_tags[0].tags);
-         if (!stringifiedTagsObject.includes("zus:cost-allocation:ApplicationId")) {
-            caughtTagOmissions.push(`${terraformFilePath}: provider.${provider_name}.default_tags missing zus:cost-allocation:ApplicationId`);
-         }
-         if (!stringifiedTagsObject.includes("zus:cost-allocation:Environment")) {
-            caughtTagOmissions.push(`${terraformFilePath}: provider.${provider_name}.default_tags missing zus:cost-allocation:Environment`);
-         }
+      // String comparison for specific tags existence
+      var stringifiedTagsObject = JSON.stringify(provider_instance.default_tags[0].tags);
+      if (!stringifiedTagsObject.includes("zus:cost-allocation:ApplicationId")) {
+         caughtTagOmissions.push(`${terraformFilePath}: provider.${provider_name}.default_tags missing zus:cost-allocation:ApplicationId`);
+      }
+      if (!stringifiedTagsObject.includes("zus:cost-allocation:Environment")) {
+         caughtTagOmissions.push(`${terraformFilePath}: provider.${provider_name}.default_tags missing zus:cost-allocation:Environment`);
       }
    }
+
 }
 
 if (caughtTagOmissions.length > 0) {
