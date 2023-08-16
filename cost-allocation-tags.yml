@@ -22,8 +22,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: check if REQ_WORKFLOW_PAT2 exists
-        run: if [ `echo ${{secrets.REQ_WORKFLOW_PAT2}} | wc -c` -lt 2 ]; then echo the secret \"REQ_WORKFLOW_PAT2\" is not available; echo please contact InfraSec team to enable at Org level for this repo; exit 1; fi
+      - name: check if REQ_WORKFLOW_PAT exists
+        run: if [ `echo ${{secrets.REQ_WORKFLOW_PAT}} | wc -c` -lt 2 ]; then echo the secret \"REQ_WORKFLOW_PAT\" is not available; echo please contact InfraSec team to enable at Org level for this repo; exit 1; fi
       - name: Checkout
         uses: actions/checkout@v3
         with:
