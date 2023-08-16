@@ -37,17 +37,17 @@ for (const terraformFilePath of terraformFilesFullPath) {
       for (const provider_instance of terraformFileObject.provider[provider_name]) {
 
          if (provider_instance.default_tags === undefined) {
-            caughtTagOmissions.push(`${tform_file}: provider.${provider_name} missing default_tags`);
+            caughtTagOmissions.push(`${terraformFilePath}: provider.${provider_name} missing default_tags`);
             continue;
          }
 
          // String comparison for specific tags existence
          var stringifiedTagsObject = JSON.stringify(provider_instance.default_tags[0].tags);
          if (!stringifiedTagsObject.includes("zus:cost-allocation:ApplicationId")) {
-            caughtTagOmissions.push(`${tform_file}: provider.${provider_name}.default_tags missing zus:cost-allocation:ApplicationId`);
+            caughtTagOmissions.push(`${terraformFilePath}: provider.${provider_name}.default_tags missing zus:cost-allocation:ApplicationId`);
          }
          if (!stringifiedTagsObject.includes("zus:cost-allocation:Environment")) {
-            caughtTagOmissions.push(`${tform_file}: provider.${provider_name}.default_tags missing zus:cost-allocation:Environment`);
+            caughtTagOmissions.push(`${terraformFilePath}: provider.${provider_name}.default_tags missing zus:cost-allocation:Environment`);
          }
       }
    }
