@@ -29,7 +29,7 @@ jobs:
         with:
           token: ${{ secrets.REQ_WORKFLOW_PAT }}
           repository: zeus-health/required-workflows
-          ref: feature/INFR-648-deafult_tags
+          ref: main
           path: required-workflows
           set-safe-directory: 'cost_allocation_tags'
       - name: Find terraform files
