@@ -12,7 +12,7 @@ permissions:
   repository-projects: read
 
 jobs:
-  tfsec-validation:
+   cost-allocation-check:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/zeus-health/ci-worker
@@ -20,11 +20,24 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Checkout
+      - name: Checkout invoking repo
         uses: actions/checkout@v3
-      - name: Check for AWS cost allocation tags
+      - name: check if REQ_WORKFLOW_PAT exists
+        run: if [ `echo ${{secrets.REQ_WORKFLOW_PAT}} | wc -c` -lt 2 ]; then echo the secret \"REQ_WORKFLOW_PAT\" is not available; echo please contact InfraSec team to enable at Org level for this repo; exit 1; fi
+      - name: Checkout required-workflows
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.REQ_WORKFLOW_PAT }}
+          repository: zeus-health/required-workflows
+          ref: main
+          path: required-workflows
+          set-safe-directory: 'cost_allocation_tags'
+      - name: Find terraform files
         shell: bash
-        env:
-          READ_ONLY_GITHUB_TOKEN: ${{ secrets.READ_ONLY_GITHUB_TOKEN }}
+        run: | # exclude the required-workflows directory, it's not the repo being inspected
+          find ~+ -type f -not -path '*/.*' -not -path "*/required-workflows/*" -name '*.tf' -print > required-workflows/cost_allocation_tags/TF_FILES.tmp
+      - name: Parse and check for AWS cost allocation tags
+        shell: bash
+        working-directory: required-workflows/cost_allocation_tags
         run: |
-          ./count-untagged-providers.sh
+          ./main.sh pwd
