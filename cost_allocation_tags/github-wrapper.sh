@@ -4,6 +4,8 @@ set -e -o pipefail
 FINDINGS_FILENAME="TF_TAGGING_FINDS.tmp"
 
 if [ ! -f "$FINDINGS_FILENAME" ]
+   pwd
+   ls -lsah
    echo "TF_TAGGING_FINDS.tmp not found, no findings, skipping script and step ..."
    exit 0
 then
