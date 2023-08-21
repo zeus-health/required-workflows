@@ -56,5 +56,5 @@ if (caughtTagOmissions.length > 0) {
    file.on('error', function(err) { /* error handling */ });
    caughtTagOmissions.forEach(function(v) { file.write(v + '\n'); });
    file.end();
-   // process.exit(1);
+   // process.exit(1); // to be flipped, and Actions step "name: Comment to PR if findings exist" to be removed
 }
