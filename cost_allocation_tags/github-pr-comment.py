@@ -30,7 +30,6 @@ def create_findings_message():
       f" https://zeushealth.atlassian.net/wiki/spaces/SI/pages/1577287692/Resource+Tagging \n"
       f" \n"
       ]
-   findings_array = [f"**Terraform AWS Provider missing default_tags configurations** \n"]
    with open('TF_TAGGING_FINDS.tmp') as my_file:
       for line in my_file:
          findings_array.append(f"`${line}`\n")
