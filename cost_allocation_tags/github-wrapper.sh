@@ -4,10 +4,11 @@ set -e -o pipefail
 FINDINGS_FILENAME="TF_TAGGING_FINDS.tmp"
 
 if [ ! -f "$FINDINGS_FILENAME" ]
-   cat $FINDINGS_FILENAME
-then
-	echo "TF_TAGGING_FINDS.tmp not found, no findings, skipping script and step ..."
+   echo "TF_TAGGING_FINDS.tmp not found, no findings, skipping script and step ..."
    exit 0
+then
+   echo "$FINDINGS_FILENAME"
+	cat $FINDINGS_FILENAME
 fi
 
 # echo "Installing Python dependencies"
