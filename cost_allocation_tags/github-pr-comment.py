@@ -27,7 +27,7 @@ def create_findings_message():
    findings_array = [f"$$\\textcolor{{Orange}}{{\\text{{Terraform AWS Provider missing default_tags configurations}}}}$$\n"]
    with open('TF_TAGGING_FINDS.tmp') as my_file:
       for line in my_file:
-         findings_array.append(line)
+         findings_array.append("`" + line + "`")
    return ''.join(findings_array)
 
 def submit_comment(pr, message):
