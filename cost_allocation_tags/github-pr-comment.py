@@ -24,8 +24,7 @@ def remove_comments(pr):
 
 
 def create_findings_message():
-   findings_array = [f"$$\textcolor{Orange}{\verb|Terraform AWS Provider missing default_tags configurations|}$$\n"]
-   # findings_array = [f"**Terraform AWS Provider missing default_tags configurations** \n"]
+   findings_array = [f"**Terraform AWS Provider missing default_tags configurations** \n"]
    with open('TF_TAGGING_FINDS.tmp') as my_file:
       for line in my_file:
          findings_array.append("`" + line + "`")
