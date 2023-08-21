@@ -7,8 +7,6 @@ if [ -f "$FINDINGS_FILENAME" ]; then
    echo "$FINDINGS_FILENAME"
 	cat $FINDINGS_FILENAME
 else
-   pwd
-   ls -lsah
    echo "$FINDINGS_FILENAME not found, no findings, skipping script and step ..."
    exit 0
 
