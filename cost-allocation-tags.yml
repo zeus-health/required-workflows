@@ -4,12 +4,7 @@ on:
   pull_request:
     branches: [main]
 
-permissions:
-  actions: read
-  contents: read
-  packages: read
-  pull-requests: write
-  repository-projects: read
+permissions: write-all
 
 jobs:
    cost-allocation-check:
