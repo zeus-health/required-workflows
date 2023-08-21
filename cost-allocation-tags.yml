@@ -41,3 +41,8 @@ jobs:
         working-directory: required-workflows/cost_allocation_tags
         run: |
           ./main.sh pwd
+      - name: Comment to PR if findings exist
+        shell: bash
+        working-directory: required-workflows/cost_allocation_tags
+        run: |
+          cat TF_TAGGING_FINDS.tmp
