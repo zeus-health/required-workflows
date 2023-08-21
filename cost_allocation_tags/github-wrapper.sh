@@ -9,12 +9,11 @@ if [ -f "$FINDINGS_FILENAME" ]; then
 else
    pwd
    ls -lsah
-   echo "TF_TAGGING_FINDS.tmp not found, no findings, skipping script and step ..."
+   echo "$FINDINGS_FILENAME not found, no findings, skipping script and step ..."
    exit 0
 
 fi
 
-
-# echo "Installing Python dependencies"
-# pip install PyGithub --quiet
-# python3 github-pr-comment.py $1 $2
+echo "Installing Python dependencies"
+pip install PyGithub --quiet
+python3 github-pr-comment.py
