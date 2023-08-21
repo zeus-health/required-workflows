@@ -45,4 +45,4 @@ jobs:
         shell: bash
         working-directory: required-workflows/cost_allocation_tags
         run: |
-          cat TF_TAGGING_FINDS.tmp
+          ./github-wrapper.sh
