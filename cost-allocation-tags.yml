@@ -45,4 +45,6 @@ jobs:
         shell: bash
         working-directory: required-workflows/cost_allocation_tags
         run: |
+          ls -lsah
+          ls -lsah ..
           ./github-wrapper.sh
