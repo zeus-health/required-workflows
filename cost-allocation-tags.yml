@@ -44,6 +44,8 @@ jobs:
       - name: Comment to PR if findings exist
         shell: bash
         working-directory: required-workflows/cost_allocation_tags
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
           ls -lsah
           ls -lsah ..
