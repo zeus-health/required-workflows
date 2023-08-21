@@ -17,7 +17,7 @@ def load_plan(file):
 
 def remove_comments(pr):
     comments = pr.get_comments()
-    to_remove = list(filter(lambda x: f'Terraform AWS Provider missing default_tags configurations' in x.body, comments))
+    to_remove = list(filter(lambda x: f'this will soon become a FAIL across the entire zeus-health' in x.body, comments))
     for issue in to_remove:
         issue.delete()
     print(f"Removed {len(to_remove)} old comments")
