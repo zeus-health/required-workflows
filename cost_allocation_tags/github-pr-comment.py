@@ -4,17 +4,6 @@ import sys, os, json
 
 from github import Github
 
-def load_plan(file):
-    lines = []
-    with open(file) as f:
-        for line in f:
-            try:
-                this = json.loads(line)
-                lines.append(this)
-            except:
-                pass
-    return lines
-
 def remove_comments(pr):
     comments = pr.get_comments()
     to_remove = list(filter(lambda x: f'this will soon become a FAIL across the entire zeus-health' in x.body, comments))
@@ -60,5 +49,6 @@ if __name__ == '__main__':
     repo = g.get_repo(eventPath['repository']['full_name'])
     pr = repo.get_issue(eventPath['pull_request']['number'])
     remove_comments(pr)
-    findings_msg = create_findings_message()
-    submit_comment(pr, findings_msg)
+    if 'CLEANUP_ONLY' not in os.environ:
+        findings_msg = create_findings_message()
+        submit_comment(pr, findings_msg)
