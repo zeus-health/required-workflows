@@ -49,8 +49,6 @@ if __name__ == '__main__':
     repo = g.get_repo(eventPath['repository']['full_name'])
     pr = repo.get_issue(eventPath['pull_request']['number'])
     remove_comments(pr)
-    try:
-        os.environ['CLEANUP_ONLY']
-    except:
+    if 'CLEANUP_ONLY' not in os.environ:
         findings_msg = create_findings_message()
         submit_comment(pr, findings_msg)
