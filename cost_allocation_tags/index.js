@@ -51,5 +51,10 @@ for (const terraformFilePath of terraformFilesFullPath) {
 if (caughtTagOmissions.length > 0) {
    console.error(caughtTagOmissions);
    console.error("... please remediate the terraform providers per https://zeushealth.atlassian.net/wiki/spaces/SI/pages/1577287692/Resource+Tagging");
-   process.exit(1);
+
+   var file = fs.createWriteStream('TF_TAGGING_FINDS.tmp');
+   file.on('error', function(err) { /* error handling */ });
+   caughtTagOmissions.forEach(function(v) { file.write(v + '\n'); });
+   file.end();
+   // process.exit(1); // to be flipped, and Actions step "name: Comment to PR if findings exist" to be removed
 }
