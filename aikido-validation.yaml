@@ -21,3 +21,8 @@ jobs:
         continue-on-error: true
         with:
             secret-key: ${{ secrets.AIKIDO_SECRET_KEY }}
+            fail-on-timeout: true
+            fail-on-dependency-scan: true
+            fail-on-sast-scan: true
+            fail-on-iac-scan: true
+            minimum-severity: 'CRITICAL'
