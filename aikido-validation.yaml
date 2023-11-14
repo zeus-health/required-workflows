@@ -25,3 +25,4 @@ jobs:
             fail-on-sast-scan: true
             fail-on-iac-scan: true
             minimum-severity: 'CRITICAL'
+            timeout-seconds: 300
