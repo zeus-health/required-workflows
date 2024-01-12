@@ -26,3 +26,5 @@ jobs:
             fail-on-iac-scan: true
             minimum-severity: 'CRITICAL'
             timeout-seconds: 300
+            post-scan-status-comment: true
+            github-token: ${{ secrets.GITHUB_TOKEN }}
